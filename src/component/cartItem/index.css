@@ -1,0 +1,55 @@
+.cart-item {
+  width: 500px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  /* margin: 35px; */
+  justify-content: space-around;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cart-image {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+.cart-title {
+  width: 150px; /* or whatever fits your design */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.close-button-container {
+  position: relative;
+  right: -20px;
+  top: -50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px; /* Adjust as needed */
+  height: 50px; /* Adjust as needed */
+}
+.close-button {
+  background: none;
+  border: none;
+  color: gray;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.item-quantity {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  /* gap: 2px; */
+}
+.qty-btn {
+  width: 10px;
+  display: inline;
+  background: none;
+  color: black;
+  border: none;
+}
