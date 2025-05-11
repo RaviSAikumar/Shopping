@@ -1,30 +1,30 @@
 import "./navbar.css";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/index";
-import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 function NavMenu() {
-  const { addToCart } = useContext(GlobalContext);
+  const { addToCart, isAuthenticated, setIsAuthenticated } =
+    useContext(GlobalContext);
   const [cartCount, setCartCount] = useState(0);
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setIsAuthenticated(false);
+  };
+
   useEffect(() => {
-    var count = 0;
-    for (let i = 0; i < addToCart.length; i++) {
-      count += Number(addToCart[i].quantity);
-    }
+    const count = addToCart.reduce((acc, item) => acc + item.quantity, 0);
     setCartCount(count);
   }, [addToCart]);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-  }
   return (
     <nav>
       <h2 className="logo">Logo</h2>
 
-      <form className="searchForm" onSubmit={handleSubmit}>
+      <form className="searchForm">
         <input
           className="SearchBar"
           type="search"
@@ -41,7 +41,6 @@ function NavMenu() {
             Home
           </a>
         </li>
-
         <li>
           <a className="nav-link" href="/products">
             Men
@@ -58,11 +57,15 @@ function NavMenu() {
             <span className="cart-quantity">{cartCount}</span>
           </a>
         </li>
-        <li>
-          <a className="nav-link" href="/login">
-            Login
-          </a>
-        </li>
+        {isAuthenticated ? (
+          <li onClick={handleLogout} style={{ cursor: "pointer" }}>
+            <a href="/">Logout</a>
+          </li>
+        ) : (
+          <li>
+            <a href="/login">Login</a>
+          </li>
+        )}
       </ul>
     </nav>
   );
