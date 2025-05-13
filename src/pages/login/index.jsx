@@ -1,6 +1,7 @@
 import "./index.css";
 import { useState } from "react";
 import axios from "axios";
+const API = import.meta.env.VITE_API_BASE_URL;
 
 function LoginPage({ isAuthenticated, setIsAuthenticated }) {
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -15,10 +16,7 @@ function LoginPage({ isAuthenticated, setIsAuthenticated }) {
     setError("");
 
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        formData
-      );
+      const res = await axios.post(`${API}/auth/login`, formData);
       console.log("Login successful", res.data);
 
       localStorage.setItem("token", res.data.token);
@@ -31,6 +29,25 @@ function LoginPage({ isAuthenticated, setIsAuthenticated }) {
     }
   };
 
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+  //   setError("");
+
+  //   try {
+  //     // Use the API URL from .env file instead of hardcoding localhost
+  //     const res = await axios.post(`${API}/api/auth/login`, formData);
+  //     console.log("Login successful", res.data);
+
+  //     // Save the token in localStorage for authentication
+  //     localStorage.setItem("token", res.data.token);
+
+  //     // Redirect to home page after successful login
+  //     window.location.href = "/";
+  //   } catch (err) {
+  //     console.error("Login error", err);
+  //     setError(err.response?.data?.message || "Login failed");
+  //   }
+  // };
   return (
     <div className="login-page">
       <form onSubmit={handleLogin}>
