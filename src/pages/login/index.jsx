@@ -1,7 +1,7 @@
 import "./index.css";
 import { useState } from "react";
 import axios from "axios";
-const API = import.meta.env.VITE_API_BASE_URL;
+// const API = import.meta.env.VITE_API_BASE_URL;
 
 function LoginPage({ isAuthenticated, setIsAuthenticated }) {
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -16,7 +16,10 @@ function LoginPage({ isAuthenticated, setIsAuthenticated }) {
     setError("");
 
     try {
-      const res = await axios.post(`${API}/auth/login`, formData);
+      const res = await axios.post(
+        `https://e-commerce-backeend.onrender.com/api/auth/login`,
+        formData
+      );
       console.log("Login successful", res.data);
 
       localStorage.setItem("token", res.data.token);
