@@ -10,7 +10,7 @@ function GlobalState({ children }) {
   });
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  console.log(isAuthenticated);
+
   useEffect(() => {
     localStorage.setItem("addToCart", JSON.stringify(addToCart));
   }, [addToCart]);

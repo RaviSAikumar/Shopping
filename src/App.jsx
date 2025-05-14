@@ -7,6 +7,8 @@ import CartPage from "./pages/cart";
 import LoginPage from "./pages/login";
 import RegisterPage from "./pages/register";
 import Footer from "./component/footer";
+import MenPage from "./pages/men";
+import WomenPage from "./pages/Women";
 function App() {
   return (
     <div className="App">
@@ -16,6 +18,8 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/men" element={<MenPage />} />
+        <Route path="/women" element={<WomenPage />} />
 
         <Route path="/register" element={<RegisterPage />} />
 

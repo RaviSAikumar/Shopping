@@ -43,11 +43,16 @@ function NavMenu() {
         </li>
         <li>
           <a className="nav-link" href="/products">
+            Product
+          </a>
+        </li>
+        <li>
+          <a className="nav-link" href="/men">
             Men
           </a>
         </li>
         <li>
-          <a className="nav-link" href="/products">
+          <a className="nav-link" href="/women">
             Women
           </a>
         </li>
