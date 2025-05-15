@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { GlobalContext } from "../../context/index";
 import "./index.css";
 function Payment() {
-  const { addToCart } = useContext(GlobalContext);
+  const { cartItems } = useContext(GlobalContext);
   const [pricing, setPricing] = useState({
     totalPrice: 0,
     discount: 0,
@@ -17,8 +17,8 @@ function Payment() {
     let shippingCharges = 0;
     let platform = 10;
 
-    for (let i = 0; i < addToCart.length; i++) {
-      sum += Number(addToCart[i].price) * Number(addToCart[i].quantity);
+    for (let i = 0; i < cartItems.length; i++) {
+      sum += Number(cartItems[i].price) * Number(cartItems[i].quantity);
     }
 
     if (sum > 150) {
@@ -50,11 +50,11 @@ function Payment() {
       charges: platform,
       shipingPrice: shippingCharges,
     });
-  }, [addToCart]);
+  }, [cartItems]);
 
   return (
     <div className="payment-container">
-      <h4>Price details ({addToCart.length})</h4>
+      <h4>Price details ({cartItems.length})</h4>
       <div className="payment-detail-container">
         <div className="price-details">
           <p>Total MRP</p>

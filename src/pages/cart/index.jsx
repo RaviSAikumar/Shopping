@@ -7,16 +7,16 @@ import Payment from "../../component/payment";
 import "./index.css";
 
 function CartPage() {
-  const { addToCart, setAddToCart } = useContext(GlobalContext);
+  const { cartItems, setCartItems } = useContext(GlobalContext);
 
   const removeAll = () => {
     localStorage.removeItem("cartItems");
-    setAddToCart([]);
+    setCartItems([]);
   };
 
   return (
     <div>
-      {addToCart.length === 0 ? (
+      {cartItems.length === 0 ? (
         <div className="empty-cart">
           <div className="empty-cart-content">
             <img src="\images\image.png" alt="empty cart" />
@@ -30,12 +30,12 @@ function CartPage() {
         <div className="cart-container">
           <div className="cart-items">
             <div className="cart-header">
-              <div>Total items: {addToCart.length}</div>
+              <div>Total items: {cartItems.length}</div>
               <div>
                 <button onClick={removeAll}>Remove</button>
               </div>
             </div>
-            {addToCart.map((item) => {
+            {cartItems.map((item) => {
               return <div key={item.id}>{<CartItem cart={item} />}</div>;
             })}
           </div>

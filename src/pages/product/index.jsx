@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { addToCart, setAddToCart } = useContext(GlobalContext);
+  const { cartItems, addToCart, isAuthenticated } = useContext(GlobalContext);
+
   const [showToast, setShowToast] = useState(false);
   const [lastAddedProduct, setLastAddedProduct] = useState(null);
 
@@ -24,23 +25,15 @@ function Products() {
     }
   };
 
-  const addToCartHandler = (product) => {
-    const existingItem = addToCart.find((item) => item.id === product.id);
-    if (existingItem) {
-      const updatedCart = addToCart.map((item) =>
-        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-      );
-      setAddToCart(updatedCart);
-    } else {
-      setAddToCart([...addToCart, { ...product, quantity: 1 }]);
+  const addToCartHandler = async (product) => {
+    try {
+      await addToCart(product._id, 1);
+      setLastAddedProduct(product);
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 2000);
+    } catch (error) {
+      console.error("Add to cart failed:", error.message);
     }
-
-    // Show toast with this product's image
-    setLastAddedProduct(product);
-    setShowToast(true);
-    setTimeout(() => {
-      setShowToast(false);
-    }, 2000);
   };
 
   useEffect(() => {
@@ -52,7 +45,7 @@ function Products() {
   return (
     <div className="product-container">
       {products.map((product) => (
-        <div key={product.id}>
+        <div key={product._id}>
           <ProductItem product={product} />
           <button
             className="buy-button"
@@ -72,6 +65,7 @@ function Products() {
           />
           <span>Item added to bag successfully!</span>
           <Link
+            to="/cart"
             style={{
               backgroundColor: "#4caf50",
               padding: "0px 3px",
@@ -79,9 +73,8 @@ function Products() {
               borderRadius: "5px",
               fontSize: "15px",
             }}
-            to={"/cart"}
           >
-            view bag
+            View Bag
           </Link>
         </div>
       )}

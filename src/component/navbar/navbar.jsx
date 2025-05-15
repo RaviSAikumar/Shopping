@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 function NavMenu() {
-  const { addToCart, isAuthenticated, setIsAuthenticated } =
+  const { cartItems, isAuthenticated, setIsAuthenticated } =
     useContext(GlobalContext);
   const [cartCount, setCartCount] = useState(0);
 
@@ -16,9 +16,9 @@ function NavMenu() {
   };
 
   useEffect(() => {
-    const count = addToCart.reduce((acc, item) => acc + item.quantity, 0);
+    const count = cartItems.reduce((acc, item) => acc + item.quantity, 0);
     setCartCount(count);
-  }, [addToCart]);
+  }, [cartItems]);
 
   return (
     <nav>
