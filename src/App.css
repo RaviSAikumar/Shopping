@@ -14,3 +14,17 @@ body {
 .App {
   width: 100vw;
 }
+
+.product-container {
+  display: grid;
+  grid-template-columns: 2fr 5fr 1fr;
+  margin-top: 100px;
+}
+
+.product-list {
+  width: 80%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 50px;
+  row-gap: 30px;
+}

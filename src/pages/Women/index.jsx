@@ -2,6 +2,7 @@ import "./index.css";
 import ProductItem from "../../component/productItem";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import FilterComponent from "../../component/filterComponent";
 
 function WomenPage() {
   const [data, setData] = useState([]);
@@ -24,7 +25,10 @@ function WomenPage() {
   }, []);
 
   return (
-    <div className="women-page">
+    <div className="product-container">
+      <div className="filter-container">
+        <FilterComponent />
+      </div>
       <div className="product-list">
         {data.length > 0 ? (
           data.map((product) => (

@@ -3,14 +3,12 @@ import ProductItem from "../../component/productItem";
 import "./index.css";
 import { GlobalContext } from "../../context/index";
 import { Link } from "react-router-dom";
+import FilterComponent from "../../component/filterComponent";
 
 function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { cartItems, addToCart, isAuthenticated } = useContext(GlobalContext);
-
-  const [showToast, setShowToast] = useState(false);
-  const [lastAddedProduct, setLastAddedProduct] = useState(null);
+  // const { cartItems, addToCart, isAuthenticated } = useContext(GlobalContext);
 
   const fetchProducts = async () => {
     try {
@@ -25,17 +23,6 @@ function Products() {
     }
   };
 
-  const addToCartHandler = async (product) => {
-    try {
-      await addToCart(product._id, 1);
-      setLastAddedProduct(product);
-      setShowToast(true);
-      setTimeout(() => setShowToast(false), 2000);
-    } catch (error) {
-      console.error("Add to cart failed:", error.message);
-    }
-  };
-
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -44,40 +31,16 @@ function Products() {
 
   return (
     <div className="product-container">
-      {products.map((product) => (
-        <div key={product._id}>
-          <ProductItem product={product} />
-          <button
-            className="buy-button"
-            onClick={() => addToCartHandler(product)}
-          >
-            Add to cart
-          </button>
-        </div>
-      ))}
-
-      {showToast && lastAddedProduct && (
-        <div className="toast-message">
-          <img
-            src={lastAddedProduct.image}
-            alt="added"
-            className="toast-icon"
-          />
-          <span>Item added to bag successfully!</span>
-          <Link
-            to="/cart"
-            style={{
-              backgroundColor: "#4caf50",
-              padding: "0px 3px",
-              color: "#fff",
-              borderRadius: "5px",
-              fontSize: "15px",
-            }}
-          >
-            View Bag
-          </Link>
-        </div>
-      )}
+      <div className="filter-container">
+        <FilterComponent />
+      </div>
+      <div className="product-list">
+        {products.map((product) => (
+          <div key={product._id}>
+            <ProductItem product={product} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
