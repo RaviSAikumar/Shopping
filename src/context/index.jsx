@@ -10,7 +10,7 @@ function GlobalState({ children }) {
   const token = localStorage.getItem("token");
 
   const axiosAuth = axios.create({
-    baseURL: "http://localhost:5000/api",
+    baseURL: "https://e-commerce-backeend.onrender.com/api",
     headers: {
       Authorization: `Bearer ${token}`,
     },

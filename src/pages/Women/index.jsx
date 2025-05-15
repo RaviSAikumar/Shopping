@@ -10,7 +10,7 @@ function WomenPage() {
   const fetchMenData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/products/gender?gender=Women"
+        "https://e-commerce-backeend.onrender.com/api/products/gender?gender=Women"
       );
       const products = response.data;
 
