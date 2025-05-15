@@ -41,7 +41,7 @@ function OrderPage() {
 
       // API call to backend to place order
       const response = await axios.post(
-        "http://localhost:5000/api/order/placeorder", // Adjust your backend route here
+        "https://e-commerce-backeend.onrender.com/api/order/placeorder", // Adjust your backend route here
         { shippingAddress },
         {
           headers: {
