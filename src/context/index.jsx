@@ -7,6 +7,14 @@ function GlobalState({ children }) {
   const [cartItems, setCartItems] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [token, setToken] = useState(null);
+  const [selectedGender, setSelectedGender] = useState("");
+  const [pricing, setPricing] = useState({
+    totalPrice: 0,
+    discount: 0,
+    totalAmount: 0,
+    charges: 0,
+    shipingPrice: 0,
+  });
 
   // Create axios instance with latest token
   const getAxiosAuth = () =>
@@ -69,7 +77,16 @@ function GlobalState({ children }) {
       console.error("Remove from cart failed:", err.message);
     }
   };
-
+  const removeAll = async () => {
+    try {
+      const res = await getAxiosAuth().delete("/cart/clear"); // You'll need a backend route for clearing cart
+      if (res.data.success) {
+        setCartItems([]);
+      }
+    } catch (err) {
+      console.error("Remove all from cart failed:", err.message);
+    }
+  };
   // ✅ Setup Auth and Cart on Mount
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -101,6 +118,12 @@ function GlobalState({ children }) {
         setCartItems,
         isAuthenticated,
         setIsAuthenticated,
+        selectedGender,
+        setSelectedGender,
+        removeAll,
+        pricing,
+        setPricing,
+        token,
       }}
     >
       {children}

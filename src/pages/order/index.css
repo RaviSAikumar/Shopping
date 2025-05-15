@@ -1,0 +1,76 @@
+.addressContainer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  padding: 40px 60px;
+  gap: 40px;
+  background-color: #f9f9f9;
+  flex-wrap: wrap;
+}
+
+/* Left side: Shipping form */
+.order-form {
+  flex: 1;
+  min-width: 320px;
+  max-width: 600px;
+  /* background: #fff; */
+  padding: 30px;
+  border-radius: 10px;
+  /* box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); */
+}
+
+.order-form h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.order-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.order-form input:focus {
+  border-color: #0077ff;
+  outline: none;
+  background-color: #f0f8ff;
+}
+
+/* Right side: Payment summary */
+.paymentInfo {
+  flex: 1;
+  min-width: 320px;
+  max-width: 500px;
+  /* background: #fff; */
+  padding: 30px;
+  border-radius: 10px;
+  /* box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); */
+}
+
+.paymentInfo button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 14px;
+  background-color: #000;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.paymentInfo button:hover {
+  background-color: #333;
+}
+
+.paymentInfo p {
+  margin-top: 15px;
+  font-weight: 500;
+  /* color: #d93025; */
+}

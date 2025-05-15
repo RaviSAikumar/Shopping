@@ -21,7 +21,7 @@ function NavMenu() {
   }, [cartItems]);
 
   return (
-    <nav>
+    <nav className="navmenu-link">
       <h2 className="logo">Logo</h2>
 
       <form className="searchForm">
@@ -56,10 +56,16 @@ function NavMenu() {
             Women
           </a>
         </li>
+
         <li>
           <a className="cart-link nav-link" href="/cart">
             <FontAwesomeIcon icon={faShoppingCart} size="lg" color="#fff" />{" "}
             <span className="cart-quantity">{cartCount}</span>
+          </a>
+        </li>
+        <li>
+          <a className="nav-link" href="/profile">
+            profile
           </a>
         </li>
         {isAuthenticated ? (

@@ -3,11 +3,3 @@
   padding: 0;
   box-sizing: border-box;
 }
-
-body {
-  width: 100vw;
-  font-family: sans-serif;
-  background-color: #f0f0f0;
-  color: #333;
-  line-height: 1.6;
-}

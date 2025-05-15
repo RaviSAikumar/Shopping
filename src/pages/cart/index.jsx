@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { GlobalContext } from "../../context/index";
 import CartItem from "../../component/cartItem";
@@ -7,12 +7,14 @@ import Payment from "../../component/payment";
 import "./index.css";
 
 function CartPage() {
-  const { cartItems, setCartItems } = useContext(GlobalContext);
+  const { cartItems, setCartItems, removeAll } = useContext(GlobalContext);
+  const [checkout, setCheckout] = useState(false);
 
-  const removeAll = () => {
-    localStorage.removeItem("cartItems");
-    setCartItems([]);
-  };
+  function handleClick() {
+    setCheckout(!checkout);
+  }
+
+  // console.log(checkout);
 
   return (
     <div>
@@ -35,14 +37,22 @@ function CartPage() {
                 <button onClick={removeAll}>Remove</button>
               </div>
             </div>
-            {cartItems.map((item) => {
-              return <div key={item.id}>{<CartItem cart={item} />}</div>;
+            {cartItems.map((item, index) => {
+              return <div key={index}>{<CartItem cart={item} />}</div>;
             })}
           </div>
           <div className="payment">
             <div>
               <h2>Payment</h2>
               <Payment />
+
+              <div className="payment-button-container">
+                <Link to={"/order"}>
+                  <button className="payment-button" onClick={handleClick}>
+                    Proceed to Payment
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

@@ -2,36 +2,31 @@ import { useContext, useState, useEffect } from "react";
 import { GlobalContext } from "../../context/index";
 import "./index.css";
 function Payment() {
-  const { cartItems } = useContext(GlobalContext);
-  const [pricing, setPricing] = useState({
-    totalPrice: 0,
-    discount: 0,
-    totalAmount: 0,
-    charges: 0,
-    shipingPrice: 0,
-  });
+  const { cartItems, pricing, setPricing } = useContext(GlobalContext);
+
   useEffect(() => {
     let sum = 0;
     let discount = 0;
     let totalAmount = 0;
     let shippingCharges = 0;
     let platform = 10;
+    console.log(cartItems);
 
     for (let i = 0; i < cartItems.length; i++) {
-      sum += Number(cartItems[i].price) * Number(cartItems[i].quantity);
+      sum += Number(cartItems[i].product.price) * Number(cartItems[i].quantity);
     }
 
-    if (sum > 150) {
+    if (sum > 1500) {
       shippingCharges = "Free";
     } else {
       shippingCharges = 10;
     }
 
-    if (sum > 500) {
+    if (sum > 3000) {
       discount = (sum * 0.2).toFixed(2);
-    } else if (sum > 200) {
+    } else if (sum > 2000) {
       discount = (sum * 0.15).toFixed(2);
-    } else if (sum > 150) {
+    } else if (sum > 1500) {
       discount = (sum * 0.1).toFixed(2);
     } else {
       discount = 0;
@@ -80,9 +75,6 @@ function Payment() {
         <div className="price-details">
           <p>Total Amount</p>
           <span>${pricing.totalAmount}</span>
-        </div>
-        <div className="payment-button-container">
-          <button className="payment-button">Proceed to Payment</button>
         </div>
       </div>
     </div>

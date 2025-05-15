@@ -9,6 +9,7 @@ import RegisterPage from "./pages/register";
 import Footer from "./component/footer";
 import MenPage from "./pages/men";
 import WomenPage from "./pages/Women";
+import OrderPage from "./pages/order";
 function App() {
   return (
     <div className="App">
@@ -22,6 +23,7 @@ function App() {
         <Route path="/women" element={<WomenPage />} />
 
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/order" element={<OrderPage />} />
 
         <Route path="*" element={<div>Page Not Found</div>} />
       </Routes>

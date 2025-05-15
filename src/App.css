@@ -17,14 +17,14 @@ body {
 
 .product-container {
   display: grid;
-  grid-template-columns: 2fr 5fr 1fr;
+  grid-template-columns: 3fr 10fr 0.5fr;
   margin-top: 100px;
 }
 
 .product-list {
-  width: 80%;
+  width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   gap: 50px;
   row-gap: 30px;
 }
