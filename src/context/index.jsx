@@ -6,20 +6,21 @@ export const GlobalContext = createContext();
 function GlobalState({ children }) {
   const [cartItems, setCartItems] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [token, setToken] = useState(null);
 
-  const token = localStorage.getItem("token");
-
-  const axiosAuth = axios.create({
-    baseURL: "https://e-commerce-backeend.onrender.com/api",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  // Create axios instance with latest token
+  const getAxiosAuth = () =>
+    axios.create({
+      baseURL: "https://e-commerce-backeend.onrender.com/api",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
   // 🛒 Add to Cart
   const addToCart = async (productId, quantity = 1) => {
     try {
-      const res = await axiosAuth.post("/cart/addtocart", {
+      const res = await getAxiosAuth().post("/cart/addtocart", {
         productId,
         quantity,
       });
@@ -31,10 +32,10 @@ function GlobalState({ children }) {
     }
   };
 
-  // 📦 Get Cart
+  // 📦 Get Cart Items
   const fetchCart = async () => {
     try {
-      const res = await axiosAuth.get("/cart/getitems");
+      const res = await getAxiosAuth().get("/cart/getitems");
       if (res.data.success) {
         setCartItems(res.data.cart.items);
       }
@@ -43,9 +44,10 @@ function GlobalState({ children }) {
     }
   };
 
+  // 🔁 Update Quantity
   const updateQuantity = async (productId, quantity) => {
     try {
-      const res = await axiosAuth.put(`/cart/update/${productId}`, {
+      const res = await getAxiosAuth().put(`/cart/update/${productId}`, {
         quantity,
       });
       if (res.data.success) {
@@ -56,10 +58,10 @@ function GlobalState({ children }) {
     }
   };
 
-  // ❌ Remove from Cart
+  // ❌ Remove Item from Cart
   const removeFromCart = async (productId) => {
     try {
-      const res = await axiosAuth.delete(`/cart/remove/${productId}`);
+      const res = await getAxiosAuth().delete(`/cart/remove/${productId}`);
       if (res.data.success) {
         setCartItems(res.data.cart.items);
       }
@@ -68,14 +70,24 @@ function GlobalState({ children }) {
     }
   };
 
-  // ✅ Set auth state & get cart if logged in
+  // ✅ Setup Auth and Cart on Mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedToken = localStorage.getItem("token");
+      if (storedToken) {
+        setToken(storedToken);
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+        setCartItems([]);
+      }
+    }
+  }, []);
+
+  // 🎯 Fetch cart when token is set
   useEffect(() => {
     if (token) {
-      setIsAuthenticated(true);
       fetchCart();
-    } else {
-      setIsAuthenticated(false);
-      setCartItems([]);
     }
   }, [token]);
 
