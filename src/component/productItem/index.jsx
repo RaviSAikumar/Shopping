@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import { GlobalContext } from "../../context/index";
 function ProductItem({ product }) {
-  const { addToCart } = useContext(GlobalContext);
+  const { addToCart, isAuthenticated } = useContext(GlobalContext);
   const [showToast, setShowToast] = useState(false);
   const [lastAddedProduct, setLastAddedProduct] = useState(null);
 
@@ -29,12 +29,18 @@ function ProductItem({ product }) {
           <p className="product-title">{product.name}</p>
           <p className="product-price">${product.price}</p>
         </div>
-        <button
-          className="buy-button"
-          onClick={() => addToCartHandler(product)}
-        >
-          Add to cart
-        </button>
+        {isAuthenticated ? (
+          <button
+            className="buy-button"
+            onClick={() => addToCartHandler(product)}
+          >
+            Add to cart
+          </button>
+        ) : (
+          <Link to={"/login"}>
+            <button className="buy-button">Add to cart</button>
+          </Link>
+        )}
       </div>
 
       {showToast && lastAddedProduct && (
