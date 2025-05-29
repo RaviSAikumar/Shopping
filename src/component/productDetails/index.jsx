@@ -89,8 +89,6 @@ const ProductDetails = () => {
                 <button className="btn add-to-cart" onClick={handleAddToCart}>
                   Add to Cart
                 </button>
-
-                {product._id}
               </div>
             ) : (
               <Link to="/login">
