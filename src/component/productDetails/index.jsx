@@ -32,15 +32,16 @@ const ProductDetails = () => {
     try {
       await addToCart(product._id, 1);
       setLastAddedProduct(product);
+      setProduct((prevProduct) => ({
+        ...prevProduct,
+        stock: prevProduct.stock - 1,
+      }));
       setShowToast(true);
       setTimeout(() => setShowToast(false), 1000);
     } catch (error) {
       console.error("Add to cart failed:", error.message);
     }
   };
-  useEffect(() => {
-    handleAddToCart;
-  }, []);
 
   if (!product) return <p>Loading...</p>;
 
@@ -82,12 +83,15 @@ const ProductDetails = () => {
           <p className="description">{description}</p>
           <p className="price">₹{price}</p>
           <p className="stock">In stock: {stock}</p>
-
           {stock > 0 ? (
             isAuthenticated ? (
-              <button className="btn add-to-cart" onClick={handleAddToCart}>
-                Add to Cart
-              </button>
+              <div>
+                <button className="btn add-to-cart" onClick={handleAddToCart}>
+                  Add to Cart
+                </button>
+
+                {product._id}
+              </div>
             ) : (
               <Link to="/login">
                 <button className="btn add-to-cart">Add to Cart</button>
@@ -98,10 +102,15 @@ const ProductDetails = () => {
               Out of Stock
             </button>
           )}
-
-          <button className="btn buy-now" disabled={stock === 0}>
-            Buy Now
-          </button>
+          <Link to="/cart">
+            <button
+              onClick={handleAddToCart}
+              className="btn buy-now"
+              disabled={stock === 0}
+            >
+              Buy Now
+            </button>
+          </Link>
         </div>
       </div>
 
