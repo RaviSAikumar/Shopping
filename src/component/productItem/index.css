@@ -45,3 +45,10 @@
   font-weight: 600;
   text-transform: uppercase;
 }
+
+.viewDetailsButton {
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+  height: 35px;
+}

@@ -29,6 +29,10 @@ function ProductItem({ product }) {
           <p className="product-title">{product.name}</p>
           <p className="product-price">${product.price}</p>
         </div>
+        <Link to={`/product/${product._id}`}>
+          <button className="viewDetailsButton">View Details</button>
+        </Link>
+
         {isAuthenticated ? (
           <button
             className="buy-button"
