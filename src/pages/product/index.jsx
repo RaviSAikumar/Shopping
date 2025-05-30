@@ -5,13 +5,8 @@ import { GlobalContext } from "../../context/index";
 import FilterComponent from "../../component/filterComponent";
 
 function Products() {
-  const {
-    setAllProducts,
-    allProducts,
-    filteredProducts,
-    setFilteredProducts,
-    brandOptions,
-  } = useContext(GlobalContext);
+  const { setAllProducts, filteredProducts, setFilteredProducts } =
+    useContext(GlobalContext);
 
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +23,7 @@ function Products() {
         setAllProducts(data); // Store all products in context
         setFilteredProducts(data); // Initially, filtered = all
       }
-      console.log(filteredProducts);
+      // console.log(filteredProducts);
 
       setLoading(false);
     } catch (error) {

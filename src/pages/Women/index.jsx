@@ -1,6 +1,6 @@
 import "./index.css";
 import ProductItem from "../../component/productItem";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import FilterComponent from "../../component/filterComponent";
 
@@ -13,7 +13,9 @@ function WomenPage() {
         "https://e-commerce-backeend.onrender.com/api/products/gender?gender=Women"
       );
       const products = response.data;
-
+      if (products) {
+        setData(products); // <--- update local state here
+      }
       setData(products);
     } catch (e) {
       console.log("Error fetching men products:", e.message);

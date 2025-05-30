@@ -32,7 +32,7 @@ function FilterComponent() {
   // console.log(brandOptions);
 
   return (
-    <div>
+    <div className="filter-container">
       <h2>Filters</h2>
       {/* <select name="gender">
         <option value="">All Genders</option>
@@ -40,12 +40,13 @@ function FilterComponent() {
         <option value="women">Women</option>
       </select> */}
 
-      <div>
-        <p>Brands</p>
+      <div className="BrandContainer">
+        <p className="BrandHeading">Brands</p>
         {Object.keys(brandOptions).length > 0 ? (
           Object.keys(brandOptions).map((brand, index) => (
-            <div key={index}>
+            <div className="BrandItem" key={index}>
               <input
+                className="BrandInput"
                 type="checkbox"
                 id={`brand-${index}`}
                 name="brands"

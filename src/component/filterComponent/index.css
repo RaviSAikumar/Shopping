@@ -1,57 +1,21 @@
-.filter-container,
-.filter-container nav,
-.filter-container ul {
+.filter-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative; /* add this to allow absolute positioning inside */
 }
 
-.filter-container nav,
-.filter-container nav ul {
-  align-items: baseline;
+.BrandHeading {
+  color: gray;
+  margin: 10px;
 }
 
-.filterHeading {
-  margin-bottom: 50px;
-}
-
-/* dropdown box */
-.gender-options {
-  position: absolute;
-  top: 100%; /* position just below the Gender item */
-  left: 50%;
-  transform: translateX(-50%);
-  background: white;
-  border: 1px solid #ccc;
-  padding: 8px 12px;
-  margin-top: 8px;
-  border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  z-index: 10;
-  width: 120px;
+.BrandItem {
+  color: gray;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  gap: 30px;
 }
 
-.gender-options label {
-  margin-bottom: 8px;
-  cursor: pointer;
-  width: 100%;
-  user-select: none;
-}
-
-.price-range-container {
-  margin-top: 10px;
-}
-
-.single-slider {
-  width: 100%;
-  accent-color: #ff2b78;
-}
-
-.price-values {
-  margin-top: 5px;
-  font-weight: bold;
+.BrandInput[type="checkbox"] {
+  accent-color: black;
 }
