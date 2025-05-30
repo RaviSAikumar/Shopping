@@ -11,6 +11,7 @@ import MenPage from "./pages/men";
 import WomenPage from "./pages/Women";
 import OrderPage from "./pages/order";
 import ProductDetails from "./component/productDetails";
+import PaymentPage from "./pages/PaymentPage";
 function App() {
   return (
     <div className="App">
@@ -26,6 +27,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/order" element={<OrderPage />} />
         <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="/payment" element={<PaymentPage />} />
 
         <Route path="*" element={<div>Page Not Found</div>} />
       </Routes>

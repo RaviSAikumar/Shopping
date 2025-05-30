@@ -1,0 +1,12 @@
+.paymentContainer {
+  margin: 100px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.paymentBtn {
+  width: 100%;
+}

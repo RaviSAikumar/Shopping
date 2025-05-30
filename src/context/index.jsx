@@ -4,6 +4,8 @@ import axios from "axios";
 export const GlobalContext = createContext();
 
 function GlobalState({ children }) {
+  const [selectedPriceRange, setSelectedPriceRange] = useState([1000, 10000]);
+
   const [cartItems, setCartItems] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [token, setToken] = useState(null);
@@ -126,6 +128,8 @@ function GlobalState({ children }) {
         pricing,
         setPricing,
         token,
+        selectedPriceRange,
+        setSelectedPriceRange,
       }}
     >
       {children}

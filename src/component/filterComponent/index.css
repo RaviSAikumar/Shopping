@@ -41,3 +41,17 @@
   width: 100%;
   user-select: none;
 }
+
+.price-range-container {
+  margin-top: 10px;
+}
+
+.single-slider {
+  width: 100%;
+  accent-color: #ff2b78;
+}
+
+.price-values {
+  margin-top: 5px;
+  font-weight: bold;
+}

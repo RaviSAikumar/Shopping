@@ -3,6 +3,7 @@ import { GlobalContext } from "../../context/index"; // Your global context with
 import axios from "axios";
 import "./index.css";
 import Payment from "../../component/payment";
+import { Link } from "react-router-dom";
 
 function OrderPage() {
   const { cartItems, pricing, token } = useContext(GlobalContext); // get token if you use auth
@@ -100,9 +101,11 @@ function OrderPage() {
       </div>
       <div className="paymentInfo">
         <Payment />
-        <button onClick={placeOrder} disabled={loading}>
-          {loading ? "Placing Order..." : "Place Order"}
-        </button>
+        <Link to={"/payment"}>
+          <button onClick={placeOrder} disabled={loading}>
+            {loading ? "Placing Order..." : "Place Order"}
+          </button>
+        </Link>
 
         {message && <p>{message}</p>}
       </div>
