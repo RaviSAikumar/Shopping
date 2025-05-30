@@ -1,18 +1,21 @@
 import "./navbar.css";
 import { useContext, useEffect, useState } from "react";
-import { GlobalContext } from "../../context/index";
+import { GlobalContext } from "../../context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { Link, useNavigate } from "react-router-dom";
 
 function NavMenu() {
   const { cartItems, isAuthenticated, setIsAuthenticated } =
     useContext(GlobalContext);
   const [cartCount, setCartCount] = useState(0);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setIsAuthenticated(false);
+    navigate("/login"); // Redirect to login after logout
   };
 
   useEffect(() => {
@@ -22,7 +25,11 @@ function NavMenu() {
 
   return (
     <nav className="navmenu-link">
-      <h2 className="logo">Logo</h2>
+      <h2 className="logo">
+        <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+          Logo
+        </Link>
+      </h2>
 
       <form className="searchForm">
         <input
@@ -37,44 +44,45 @@ function NavMenu() {
 
       <ul>
         <li>
-          <a className="nav-link" href="/">
+          <Link className="nav-link" to="/">
             Home
-          </a>
+          </Link>
         </li>
         <li>
-          <a className="nav-link" href="/products">
+          <Link className="nav-link" to="/products">
             Product
-          </a>
+          </Link>
         </li>
         <li>
-          <a className="nav-link" href="/men">
+          <Link className="nav-link" to="/men">
             Men
-          </a>
+          </Link>
         </li>
         <li>
-          <a className="nav-link" href="/women">
+          <Link className="nav-link" to="/women">
             Women
-          </a>
+          </Link>
         </li>
-
         <li>
-          <a className="cart-link nav-link" href="/cart">
-            <FontAwesomeIcon icon={faShoppingCart} size="lg" color="#fff" />{" "}
+          <Link className="cart-link nav-link" to="/cart">
+            <FontAwesomeIcon icon={faShoppingCart} size="lg" color="#fff" />
             <span className="cart-quantity">{cartCount}</span>
-          </a>
+          </Link>
         </li>
         <li>
-          <a className="nav-link" href="/profile">
-            profile
-          </a>
+          <Link className="nav-link" to="/profile">
+            Profile
+          </Link>
         </li>
         {isAuthenticated ? (
           <li onClick={handleLogout} style={{ cursor: "pointer" }}>
-            <a href="/">Logout</a>
+            <span className="nav-link">Logout</span>
           </li>
         ) : (
           <li>
-            <a href="/login">Login</a>
+            <Link className="nav-link" to="/login">
+              Login
+            </Link>
           </li>
         )}
       </ul>

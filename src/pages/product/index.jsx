@@ -2,14 +2,20 @@ import { useState, useEffect, useContext } from "react";
 import ProductItem from "../../component/productItem";
 import "./index.css";
 import { GlobalContext } from "../../context/index";
-import { Link } from "react-router-dom";
 import FilterComponent from "../../component/filterComponent";
 
 function Products() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  // const { cartItems, addToCart, isAuthenticated } = useContext(GlobalContext);
+  const {
+    setAllProducts,
+    allProducts,
+    filteredProducts,
+    setFilteredProducts,
+    brandOptions,
+  } = useContext(GlobalContext);
 
+  const [loading, setLoading] = useState(true);
+
+  // Fetch products from API and store in context
   const fetchProducts = async () => {
     try {
       setLoading(true);
@@ -17,7 +23,13 @@ function Products() {
         "https://e-commerce-backeend.onrender.com/api/products/all"
       );
       const data = await response.json();
-      if (data) setProducts(data);
+
+      if (data) {
+        setAllProducts(data); // Store all products in context
+        setFilteredProducts(data); // Initially, filtered = all
+      }
+      console.log(filteredProducts);
+
       setLoading(false);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -37,11 +49,15 @@ function Products() {
         <FilterComponent />
       </div>
       <div className="product-list">
-        {products.map((product) => (
-          <div key={product._id}>
-            <ProductItem product={product} />
-          </div>
-        ))}
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
+            <div key={product._id}>
+              <ProductItem product={product} />
+            </div>
+          ))
+        ) : (
+          <div className="no-products">No products found</div>
+        )}
       </div>
     </div>
   );

@@ -4,8 +4,7 @@ import axios from "axios";
 export const GlobalContext = createContext();
 
 function GlobalState({ children }) {
-  const [selectedPriceRange, setSelectedPriceRange] = useState([1000, 10000]);
-
+  const [user, setUser] = useState({});
   const [cartItems, setCartItems] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [token, setToken] = useState(null);
@@ -17,6 +16,39 @@ function GlobalState({ children }) {
     charges: 0,
     shipingPrice: 0,
   });
+  const [allProducts, setAllProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  const [brandOptions, setBrandOptions] = useState({});
+
+  const filterProducts = (brandOptions) => {
+    const selectedBrands = Object.keys(brandOptions).filter(
+      (brand) => brandOptions[brand]
+    );
+
+    console.log(selectedBrands);
+    if (selectedBrands.length === 0) {
+      setFilteredProducts(allProducts);
+    } else {
+      const filtered = allProducts.filter(
+        (product) =>
+          product.brand &&
+          product.brand.name &&
+          selectedBrands.includes(product.brand.name)
+      );
+
+      setFilteredProducts(filtered);
+    }
+  };
+
+  const handleBrandToggle = (brand) => {
+    const updated = {
+      ...brandOptions,
+      [brand]: !brandOptions[brand],
+    };
+    setBrandOptions(updated);
+    filterProducts(updated);
+  };
 
   //update prodcut quantity after adding to the cart quantity should reduce and if removed from the cart quantity should will add back
 
@@ -93,15 +125,16 @@ function GlobalState({ children }) {
   };
   // ✅ Setup Auth and Cart on Mount
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedToken = localStorage.getItem("token");
-      if (storedToken) {
-        setToken(storedToken);
-        setIsAuthenticated(true);
-      } else {
-        setIsAuthenticated(false);
-        setCartItems([]);
-      }
+    const storedToken = localStorage.getItem("token");
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedToken) {
+      setToken(storedToken);
+      setUser(storedUser);
+      setIsAuthenticated(true);
+    } else {
+      setToken(null);
+      setUser(null);
+      setIsAuthenticated(false);
     }
   }, []);
 
@@ -128,8 +161,14 @@ function GlobalState({ children }) {
         pricing,
         setPricing,
         token,
-        selectedPriceRange,
-        setSelectedPriceRange,
+        brandOptions,
+        setBrandOptions,
+        allProducts,
+        setAllProducts,
+        filteredProducts,
+        setFilteredProducts,
+        handleBrandToggle,
+        filterProducts,
       }}
     >
       {children}

@@ -1,9 +1,14 @@
 import "./index.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { GlobalContext } from "../../context";
 // const API = import.meta.env.VITE_API_BASE_URL;
 
-function LoginPage({ isAuthenticated, setIsAuthenticated }) {
+function LoginPage() {
+  const { user, isAuthenticated, setIsAuthenticated } =
+    useContext(GlobalContext);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
 
@@ -23,9 +28,11 @@ function LoginPage({ isAuthenticated, setIsAuthenticated }) {
       console.log("Login successful", res.data);
 
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
 
-      // Redirect user
-      window.location.href = "/";
+      setIsAuthenticated(true);
+
+      navigate(res.data.user.role === "admin" ? "/adminpage" : "/");
     } catch (err) {
       console.error("Login error", err);
       setError(err.response?.data?.message || "Login failed");

@@ -12,6 +12,7 @@ import WomenPage from "./pages/Women";
 import OrderPage from "./pages/order";
 import ProductDetails from "./component/productDetails";
 import PaymentPage from "./pages/PaymentPage";
+import AdminPage from "./pages/admin/adminPage";
 function App() {
   return (
     <div className="App">
@@ -28,6 +29,7 @@ function App() {
         <Route path="/order" element={<OrderPage />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/payment" element={<PaymentPage />} />
+        <Route path="/adminpage" element={<AdminPage />} />
 
         <Route path="*" element={<div>Page Not Found</div>} />
       </Routes>

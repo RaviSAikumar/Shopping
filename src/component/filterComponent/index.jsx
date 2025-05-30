@@ -1,88 +1,75 @@
+import { useEffect, useContext } from "react";
+import axios from "axios";
 import "./index.css";
-import { useState, useContext } from "react";
 import { GlobalContext } from "../../context";
 
 function FilterComponent() {
-  const {
-    selectedGender,
-    setSelectedGender,
-    selectedMaxPrice,
-    setSelectedMaxPrice,
-  } = useContext(GlobalContext);
+  const { brandOptions, setBrandOptions, handleBrandToggle } =
+    useContext(GlobalContext);
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [maxPrice, setMaxPrice] = useState(10000);
+  const fetchBrands = async () => {
+    try {
+      const res = await axios.get(`http://localhost:5000/api/brands/allbrands`);
+      const brandsArray = res.data;
 
-  const handleGenderChange = (e) => {
-    setSelectedGender(e.target.value);
-    setIsOpen(false);
+      const brandMap = {};
+      // const brandMapfilter = {};
+      brandsArray.forEach((brand) => {
+        brandMap[brand.name] = false;
+        // brandMapfilter[brand._id] = brand.name;
+      });
+
+      // setFilters((prev) => ({ ...prev, brands: brandMapfilter }));
+      setBrandOptions(brandMap);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
-  const handlePriceChange = (e) => {
-    const newMax = Number(e.target.value);
-    setMaxPrice(newMax);
-    setSelectedMaxPrice(newMax);
-  };
+  useEffect(() => {
+    fetchBrands();
+  }, []);
+  // console.log(brandOptions);
 
   return (
     <div>
-      <div className="filter-container">
-        <h1 className="filterHeading">Filter</h1>
-        <nav className="fillter-nav">
-          <ul>
-            <li
-              onClick={() => setIsOpen((prev) => !prev)}
-              style={{ cursor: "pointer", position: "relative" }}
-            >
-              Gender ▾
-              {isOpen && (
-                <div className="gender-options">
-                  <label>
-                    <input
-                      type="radio"
-                      name="gender"
-                      value="men"
-                      checked={selectedGender === "men"}
-                      onChange={handleGenderChange}
-                    />
-                    Men
-                  </label>
-                  <label>
-                    <input
-                      type="radio"
-                      name="gender"
-                      value="women"
-                      checked={selectedGender === "women"}
-                      onChange={handleGenderChange}
-                    />
-                    Women
-                  </label>
-                </div>
-              )}
-            </li>
+      <h2>Filters</h2>
+      {/* <select name="gender">
+        <option value="">All Genders</option>
+        <option value="men">Men</option>
+        <option value="women">Women</option>
+      </select> */}
 
-            <li>Categories</li>
-
-            <li>
-              <div className="price-range-container">
-                <p>PRICE</p>
-                <input
-                  type="range"
-                  min="0"
-                  max="10000"
-                  step="100"
-                  value={maxPrice}
-                  onChange={handlePriceChange}
-                  className="single-slider"
-                />
-                <div className="price-values">Up to ₹{maxPrice}</div>
-              </div>
-            </li>
-
-            <li>Brand</li>
-          </ul>
-        </nav>
+      <div>
+        <p>Brands</p>
+        {Object.keys(brandOptions).length > 0 ? (
+          Object.keys(brandOptions).map((brand, index) => (
+            <div key={index}>
+              <input
+                type="checkbox"
+                id={`brand-${index}`}
+                name="brands"
+                checked={brandOptions[brand]}
+                onChange={() => handleBrandToggle(brand)}
+              />
+              <label htmlFor={`brand-${index}`}>{brand}</label>
+            </div>
+          ))
+        ) : (
+          <p>Loading brands...</p>
+        )}
       </div>
+
+      {/* <select name="category">
+        <option value="">All Categories</option>
+        <option value="saree">Sarees</option>
+        <option value="shirt">Shirts</option>
+        <option value="t-shirt">T-Shirts</option>
+        <option value="pant">Pants</option>
+      </select> */}
+
+      {/* <input type="number" name="min" placeholder="Min Price" />
+      <input type="number" name="max" placeholder="Max Price" /> */}
     </div>
   );
 }

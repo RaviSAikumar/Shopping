@@ -7,7 +7,6 @@ function ProductItem({ product }) {
   const { addToCart, isAuthenticated } = useContext(GlobalContext);
   const [showToast, setShowToast] = useState(false);
   const [lastAddedProduct, setLastAddedProduct] = useState(null);
-
   const addToCartHandler = async (product) => {
     try {
       await addToCart(product._id, 1);
@@ -24,8 +23,8 @@ function ProductItem({ product }) {
         <img className="product-image" src={product.image} alt={product.name} />
       </div>
       <div>
+        <p>{product.brand?.name || "No brand"}</p>
         <div className="product-details">
-          {/* <p>{product._id}</p> */}
           <p className="product-title">{product.name}</p>
           <p className="product-price">${product.price}</p>
         </div>
