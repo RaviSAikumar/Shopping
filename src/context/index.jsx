@@ -52,7 +52,7 @@ function GlobalState({ children }) {
   //update prodcut quantity after adding to the cart quantity should reduce and if removed from the cart quantity should will add back
 
   // Create axios instance with latest token
-  const getAxiosAuth = (token) =>
+  const getAxiosAuth = () =>
     axios.create({
       baseURL: "https://e-commerce-backeend.onrender.com/api",
       headers: {
