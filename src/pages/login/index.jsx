@@ -6,8 +6,7 @@ import { GlobalContext } from "../../context";
 // const API = import.meta.env.VITE_API_BASE_URL;
 
 function LoginPage() {
-  const { user, isAuthenticated, setIsAuthenticated } =
-    useContext(GlobalContext);
+  const { setIsAuthenticated } = useContext(GlobalContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
@@ -25,7 +24,6 @@ function LoginPage() {
         `https://e-commerce-backeend.onrender.com/api/auth/login`,
         formData
       );
-      console.log("Login successful", res.data);
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));

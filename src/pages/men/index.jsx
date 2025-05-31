@@ -15,11 +15,11 @@ function MenPage() {
         "https://e-commerce-backeend.onrender.com/api/products/gender?gender=Men"
       );
       const products = response.data; // axios response data is in response.data directly
-      console.log(products);
+
       if (products) {
         setData(products); // <--- update local state here
-        setAllProducts(data);
-        setFilteredProducts(data);
+        setAllProducts(products);
+        setFilteredProducts(products);
       }
     } catch (e) {
       console.log("Error fetching men products:", e.message);

@@ -26,7 +26,6 @@ function GlobalState({ children }) {
       (brand) => brandOptions[brand]
     );
 
-    console.log(selectedBrands);
     if (selectedBrands.length === 0) {
       setFilteredProducts(allProducts);
     } else {
