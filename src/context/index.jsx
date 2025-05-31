@@ -52,7 +52,7 @@ function GlobalState({ children }) {
   //update prodcut quantity after adding to the cart quantity should reduce and if removed from the cart quantity should will add back
 
   // Create axios instance with latest token
-  const getAxiosAuth = () =>
+  const getAxiosAuth = (token) =>
     axios.create({
       baseURL: "https://e-commerce-backeend.onrender.com/api",
       headers: {
@@ -63,7 +63,7 @@ function GlobalState({ children }) {
   // 🛒 Add to Cart
   const addToCart = async (productId, quantity = 1) => {
     try {
-      const res = await getAxiosAuth().post("/cart/addtocart", {
+      const res = await getAxiosAuth(token).post("/cart/addtocart", {
         productId,
         quantity,
       });
@@ -74,7 +74,6 @@ function GlobalState({ children }) {
       console.error("Add to cart failed:", err.message);
     }
   };
-
   // 📦 Get Cart Items
   const fetchCart = async () => {
     try {

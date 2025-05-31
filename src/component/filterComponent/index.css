@@ -1,21 +1,24 @@
 .filter-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  position: relative; /* add this to allow absolute positioning inside */
+  gap: 20px;
+  margin-left: 50px;
 }
 
+.GenderHeading,
 .BrandHeading {
-  color: gray;
-  margin: 10px;
+  margin-bottom: 10px;
 }
 
+.GenderItem,
 .BrandItem {
-  color: gray;
   display: flex;
-  gap: 30px;
+  gap: 40px;
+  margin-bottom: 7px;
+  color: gray;
 }
 
-.BrandInput[type="checkbox"] {
-  accent-color: black;
-}
+/* .BrandItem {
+  display: flex;
+  gap: 40px;
+} */

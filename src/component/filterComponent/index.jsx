@@ -9,7 +9,9 @@ function FilterComponent() {
 
   const fetchBrands = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/brands/allbrands`);
+      const res = await axios.get(
+        `https://e-commerce-backeend.onrender.com/api/brands/allbrands`
+      );
       const brandsArray = res.data;
 
       const brandMap = {};
@@ -33,15 +35,26 @@ function FilterComponent() {
 
   return (
     <div className="filter-container">
-      <h2>Filters</h2>
-      {/* <select name="gender">
-        <option value="">All Genders</option>
-        <option value="men">Men</option>
-        <option value="women">Women</option>
-      </select> */}
+      <div>
+        <h1>Filters</h1>
+      </div>
+      <div name="gender">
+        <div className="GenderHeading">Gender</div>
+
+        <div className="GenderItem">
+          <input className="GenderInput" type="checkbox" />
+          <label>Men</label>
+        </div>
+        <div className="GenderItem">
+          <input className="GenderInput" type="checkbox" />
+          <label>Women</label>
+        </div>
+      </div>
 
       <div className="BrandContainer">
-        <p className="BrandHeading">Brands</p>
+        <div>
+          <p className="BrandHeading">Brands</p>
+        </div>
         {Object.keys(brandOptions).length > 0 ? (
           Object.keys(brandOptions).map((brand, index) => (
             <div className="BrandItem" key={index}>
