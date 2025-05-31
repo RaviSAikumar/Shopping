@@ -1,9 +1,10 @@
+// src/context/index.jsx
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 
 export const GlobalContext = createContext();
 
-function GlobalState({ children }) {
+const GlobalProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [cartItems, setCartItems] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -18,7 +19,6 @@ function GlobalState({ children }) {
   });
   const [allProducts, setAllProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-
   const [brandOptions, setBrandOptions] = useState({});
 
   const filterProducts = (brandOptions) => {
@@ -49,9 +49,6 @@ function GlobalState({ children }) {
     filterProducts(updated);
   };
 
-  //update prodcut quantity after adding to the cart quantity should reduce and if removed from the cart quantity should will add back
-
-  // Create axios instance with latest token
   const getAxiosAuth = () =>
     axios.create({
       baseURL: "https://e-commerce-backeend.onrender.com/api",
@@ -60,10 +57,9 @@ function GlobalState({ children }) {
       },
     });
 
-  // 🛒 Add to Cart
   const addToCart = async (productId, quantity = 1) => {
     try {
-      const res = await getAxiosAuth(token).post("/cart/addtocart", {
+      const res = await getAxiosAuth().post("/cart/addtocart", {
         productId,
         quantity,
       });
@@ -74,7 +70,7 @@ function GlobalState({ children }) {
       console.error("Add to cart failed:", err.message);
     }
   };
-  // 📦 Get Cart Items
+
   const fetchCart = async () => {
     try {
       const res = await getAxiosAuth().get("/cart/getitems");
@@ -86,7 +82,6 @@ function GlobalState({ children }) {
     }
   };
 
-  // 🔁 Update Quantity
   const updateQuantity = async (productId, quantity) => {
     try {
       const res = await getAxiosAuth().put(`/cart/update/${productId}`, {
@@ -100,7 +95,6 @@ function GlobalState({ children }) {
     }
   };
 
-  // ❌ Remove Item from Cart
   const removeFromCart = async (productId) => {
     try {
       const res = await getAxiosAuth().delete(`/cart/remove/${productId}`);
@@ -111,9 +105,10 @@ function GlobalState({ children }) {
       console.error("Remove from cart failed:", err.message);
     }
   };
+
   const removeAll = async () => {
     try {
-      const res = await getAxiosAuth().delete("/cart/clear"); // You'll need a backend route for clearing cart
+      const res = await getAxiosAuth().delete("/cart/clear");
       if (res.data.success) {
         setCartItems([]);
       }
@@ -121,7 +116,7 @@ function GlobalState({ children }) {
       console.error("Remove all from cart failed:", err.message);
     }
   };
-  // ✅ Setup Auth and Cart on Mount
+
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -136,7 +131,6 @@ function GlobalState({ children }) {
     }
   }, []);
 
-  // 🎯 Fetch cart when token is set
   useEffect(() => {
     if (token) {
       fetchCart();
@@ -172,6 +166,6 @@ function GlobalState({ children }) {
       {children}
     </GlobalContext.Provider>
   );
-}
+};
 
-export default GlobalState;
+export default GlobalProvider;
