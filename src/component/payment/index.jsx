@@ -10,7 +10,6 @@ function Payment() {
     let totalAmount = 0;
     let shippingCharges = 0;
     let platform = 10;
-    console.log(cartItems);
 
     for (let i = 0; i < cartItems.length; i++) {
       sum += Number(cartItems[i].product.price) * Number(cartItems[i].quantity);
